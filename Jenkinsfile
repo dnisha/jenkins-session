@@ -31,7 +31,7 @@ pipeline {
             steps {
                 echo 'deploy the project...'
                 withCredentials([
-                    usernamepassword(credentials: 'demo', usernameVariable: USER, passwordVariable: PWD)
+                    usernamepassword(credentials: 'demo', usernameVariable: 'USER', passwordVariable: 'PWD')
                 ]){
                     echo "injected username as ${USER} and password as ${PWD}"
                 }
