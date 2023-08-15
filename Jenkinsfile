@@ -1,4 +1,6 @@
 pipeline {
+
+    agent any
    
     parameters {
         string(name: 'VERSION', defaultValue: '', description: 'Version to deploy on prod')
