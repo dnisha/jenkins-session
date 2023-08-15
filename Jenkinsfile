@@ -1,9 +1,19 @@
 pipeline {
     agent any
 
+    tools {
+        maven 'MAVEN'
+    }
+
     environment {
         NEW_VERSION = '1.3.0'
         SERVER_CREDENTIALS = credentials('demo')
+    }
+
+    perameters {
+        string(name: 'VERSION', defaultValue: '', description: 'Version to deploy on prod')
+        choice(name: 'ENVIRONMENT', choices: ['dev', 'staging', 'production'], description: 'Select deployment environment')
+        booleanParam(name: 'CLEAN_BUILD', defaultValue: true, description: 'Perform a clean build')
     }
     
     stages {
@@ -18,6 +28,7 @@ pipeline {
             steps {
                 echo 'Building the project...'
                 echo "Building project of version ${NEW_VERSION}"
+               
             }
         }
 
@@ -30,10 +41,6 @@ pipeline {
         stage('deploy') {
             steps {
                 echo 'Deploying the project...'
-                withCredentials([usernamePassword(credentials: 'demo', usernameVariable: 'USER', passwordVariable: 'PWD')]) 
-                {
-                    echo "Injected username as ${USER} and password as ${PWD}"
-                }
             }
         }
     }
