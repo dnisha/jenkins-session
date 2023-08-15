@@ -29,13 +29,17 @@ pipeline {
 
         stage('deploy') {
             steps {
-                echo 'deploy the project...'
+
+                echo 'Deploying the project...'
                 withCredentials([
-                    usernamepassword(credentials: 'demo', usernameVariable: 'USER', passwordVariable: 'PWD')
-                ]){
-                    echo "injected username as ${USER} and password as ${PWD}"
-                }
+                usernamePassword(credentials: 'demo', usernameVariable: 'USER', passwordVariable: 'PWD')
+            ]) 
+             
+            {
+                echo "Injected username as ${USER} and password as ${PWD}"
+            // You can use the injected credentials here for deployment
             }
         }
     }
+
 }
