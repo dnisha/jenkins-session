@@ -1,7 +1,6 @@
 pipeline {
-    agent any
-
-        perameters {
+   
+    parameters {
         string(name: 'VERSION', defaultValue: '', description: 'Version to deploy on prod')
         choice(name: 'ENVIRONMENT', choices: ['dev', 'staging', 'production'], description: 'Select deployment environment')
         booleanParam(name: 'CLEAN_BUILD', defaultValue: true, description: 'Perform a clean build')
