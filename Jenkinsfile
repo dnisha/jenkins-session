@@ -1,6 +1,12 @@
 pipeline {
     agent any
 
+        perameters {
+        string(name: 'VERSION', defaultValue: '', description: 'Version to deploy on prod')
+        choice(name: 'ENVIRONMENT', choices: ['dev', 'staging', 'production'], description: 'Select deployment environment')
+        booleanParam(name: 'CLEAN_BUILD', defaultValue: true, description: 'Perform a clean build')
+    }
+
     tools {
         maven 'MAVEN'
     }
@@ -8,12 +14,6 @@ pipeline {
     environment {
         NEW_VERSION = '1.3.0'
         SERVER_CREDENTIALS = credentials('demo')
-    }
-
-    perameters {
-        string(name: 'VERSION', defaultValue: '', description: 'Version to deploy on prod')
-        choice(name: 'ENVIRONMENT', choices: ['dev', 'staging', 'production'], description: 'Select deployment environment')
-        booleanParam(name: 'CLEAN_BUILD', defaultValue: true, description: 'Perform a clean build')
     }
     
     stages {
